@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-Geek-GeekUITests/Pods-Geek-GeekUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework

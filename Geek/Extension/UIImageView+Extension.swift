@@ -2,7 +2,15 @@
 //  UIImageView+Extension.swift
 //  Geek
 //
-//  Created by Thilak k on 20/05/22.
+//  Created by Srikanth S on 20/05/22.
 //
 
-import Foundation
+import UIKit
+
+extension UIImageView {
+    
+  func dropRadious() {
+      layer.cornerRadius = 10
+    
+  }
+}

@@ -1,35 +1,80 @@
 //
 //  GeekPresenterTests.swift
-//  GeekTests
+//  Geek
 //
-//  Created by Thilak k on 20/05/22.
+//  Created by Srikanth S on 20/05/22.
 //
 
+
 import XCTest
+@testable import Geek
 
 class GeekPresenterTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    var presenter : GeekPresenter!
+    var venue : Venue!
+    var performer : [Performer]!
+    
+   
+    override func setUp() {
+        self.presenter = GeekPresenter(dataService: DataService())
+        venue = Venue(state: "", nameV2: "", postalCode: "", name: "", timezone: "", url: "", score: 0, address: "", country: "")
+        performer = [Performer(type: "", name: "", image: "", id: 0)]
+        
     }
+    override func tearDown() {
+        self.presenter = nil
+        self.venue = nil
+        self.performer = nil
+    }
+    
+    func testFetchWithNoService() {
+        
+        let expectation = XCTestExpectation(description: "No service Movie")
+        
+        presenter.fetchmovie(withId: "")
+        
+        presenter.updateLoadingStatus = {
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        }
+        
+        presenter.showAlertClosure = {
+            if self.presenter.error != nil {
+                expectation.fulfill()
+            }
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+        
+    }
+    func testFetchGeek() {
+        
+        let expectation = XCTestExpectation(description: "Geek fetch")
+        
+        // giving a service mocking Movie
+        presenter.fetchmovie(withId: "swift")
+        
+        presenter.showAlertClosure = {
+            if self.presenter.error != nil {
+                XCTAssert(false, "ViewModel should not be able to fetch without service")
+            }
+        }
+        
+        presenter.didFinishFetch = {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
+    }
+    
+    func testWithMovie(){
+        self.presenter.geekList = GeekModel(events: [Event(type: "", id: 0, datetimeUTC: "", venue: venue, performers: performer, timeTbd: false, shortTitle: "", visibleUntilUTC: "")])
+        XCTAssertTrue((self.presenter.geekList?.events)!.count >= 1)
     }
 
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        self.presenter.geekList = GeekModel(events: [Event(type: "", id: 0, datetimeUTC: "", venue: venue, performers: performer, timeTbd: false, shortTitle: "", visibleUntilUTC: "")])
+        XCTAssertTrue((self.presenter.geekList?.events.count)! < 1)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
 
 }

@@ -2,7 +2,19 @@
 //  UIView+Extension.swift
 //  Geek
 //
-//  Created by Thilak k on 20/05/22.
+//  Created by Srikanth S on 20/05/22.
 //
 
-import Foundation
+import UIKit
+
+extension UIView {
+
+  func dropShadow() {
+      layer.shadowColor = UIColor.lightGray.cgColor
+      layer.shadowOpacity = 1
+      layer.shadowOffset = CGSize.zero
+      layer.shadowRadius = 5
+      layer.cornerRadius = 10
+    
+  }
+}

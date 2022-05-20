@@ -2,13 +2,13 @@
 //  GeekViewModel.swift
 //  Geek
 //
-//  Created by Thilak k on 19/05/22.
+//  Created by Srikanth S on 20/05/22.
 //
+
 
 import Foundation
 
-class GeekViewModel {
-    
+class GeekPresenter {
     // MARK: - Properties
     private var geek: GeekModel? {
         didSet {

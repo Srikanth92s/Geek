@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+class GeekService {
+    public func callAPIGetPeople(onSuccess successCallback: ((_ people: [People]) -> Void)?,
+                                 onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        APICallManager.instance.callAPIGetPeople(
+            onSuccess: { (people) in
+                successCallback?(people)
+            },
+            onFailure: { (errorMessage) in
+                failureCallback?(errorMessage)
+            }
+        )
+    }
+}
